@@ -3,27 +3,50 @@
 use App\Models\Course;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use function Pest\Laravel\get;
+use Illuminate\Support\Carbon;
 
 uses(RefreshDatabase::class);
 
 test('shows courses overview', function () {
   //arrange
-  Course::factory()->create(['title' => 'First course']);
-  Course::factory()->create(['title' => 'Second course']);
-  Course::factory()->create(['title' => 'Third course']);
+    $firstCourse = Course::factory()->released()->create();
+    $secondCourse = Course::factory()->released()->create();
+    $lastCourse = Course::factory()->released()->create();
+
+    // DD([  $firstCourse->title,
+    //         $firstCourse->description,
+    //         $secondCourse->title,
+    //         $secondCourse->description,
+    //         $lastCourse->title,
+    //         $lastCourse->description,
+    //     ]);
   //act & assert
    $this->get(route('home'))
-        ->assertSeeText(['First course', 'Second course', 'Third course']);
+        ->assertOk()
+        ->assertSeeText([
+          $firstCourse->title,
+            $firstCourse->description,
+            $secondCourse->title,
+            $secondCourse->description,
+            $lastCourse->title,
+            $lastCourse->description,
+        ]);
   
 });
 
 
 test('only shows released courses', function () {
     // Arrange
-     //act 
-  //assert
+   $releasedCourse = Course::factory()->create(['title' => 'Released course','released_at' => Carbon::yesterday()]);
+   $notReleasedCourse = Course::factory()->create(['title' => 'Unreleased course'] );
+// Act & Assert
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSeeText($releasedCourse->title)
+        ->assertDontSeeText($notReleasedCourse->title);
  
-})->skip();
+}) ;
 
 test('shows courses ordered by released date', function () {
     // Arrange
