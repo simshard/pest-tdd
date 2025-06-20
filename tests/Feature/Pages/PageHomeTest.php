@@ -21,6 +21,7 @@ test('shows courses overview', function () {
     //         $lastCourse->title,
     //         $lastCourse->description,
     //     ]);
+    
   //act & assert
    $this->get(route('home'))
         ->assertOk()
