@@ -21,7 +21,7 @@ test('shows courses overview', function () {
     //         $lastCourse->title,
     //         $lastCourse->description,
     //     ]);
-    
+
   //act & assert
    $this->get(route('home'))
         ->assertOk()
@@ -51,9 +51,16 @@ test('only shows released courses', function () {
 
 test('shows courses ordered by released date', function () {
     // Arrange
-     //act 
-  //assert  
-})->skip();
+    $releasedCourse = Course::factory()->released(Carbon::yesterday())->create();
+    $newestReleasedCourse = Course::factory()->released()->create();
+     //act & assert 
+       $this->get(route('home'))
+       ->assertSeeInOrder([
+            $newestReleasedCourse->title,
+            $releasedCourse->title,
+        ]);
+}); 
+
 
 test('includes social tags', function () {
     // Arrange

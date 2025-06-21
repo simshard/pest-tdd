@@ -12,9 +12,9 @@ class PageHomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-       //$courses = Course::all();
         $courses = Course::query()
             ->whereNotNull('released_at')
+            ->orderBy('released_at', 'desc')
             ->get();
         return view ('home', compact('courses'));
     }
