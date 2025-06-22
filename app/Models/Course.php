@@ -15,6 +15,9 @@ class Course extends Model
     //     'description',
     //     'released_at',
     // ];
+     public $casts = [
+        'learnings' => 'array',
+    ];
 
     public function scopeReleased(Builder $query): Builder
     {

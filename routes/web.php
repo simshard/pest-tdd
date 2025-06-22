@@ -1,12 +1,17 @@
 <?php
 
-use App\Http\Controllers\PageHomeController;
-use App\Livewire\Settings\Appearance;
-use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Livewire\Settings\Password;
+use App\Livewire\Settings\Appearance;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageHomeController;
+use App\Http\Controllers\PageCourseDetailsController;
 
-Route::get('/', PageHomeController::class)->name('home');
+
+
+Route::get('/', PageHomeController::class)->name('page.home');
+
+ Route::get('courses/{course:slug}', PageCourseDetailsController::class)->name('course-details');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
