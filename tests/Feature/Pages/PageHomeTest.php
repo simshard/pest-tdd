@@ -3,7 +3,7 @@
 use App\Models\Course;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use function Pest\Laravel\get;
+// use function Pest\Laravel\get;
 use Illuminate\Support\Carbon;
 
 uses(RefreshDatabase::class);
@@ -14,19 +14,11 @@ test('shows courses overview', function () {
     $secondCourse = Course::factory()->released()->create();
     $lastCourse = Course::factory()->released()->create();
 
-    // DD([  $firstCourse->title,
-    //         $firstCourse->description,
-    //         $secondCourse->title,
-    //         $secondCourse->description,
-    //         $lastCourse->title,
-    //         $lastCourse->description,
-    //     ]);
-
   //act & assert
    $this->get(route('home'))
         ->assertOk()
         ->assertSeeText([
-          $firstCourse->title,
+            $firstCourse->title,
             $firstCourse->description,
             $secondCourse->title,
             $secondCourse->description,
@@ -39,8 +31,8 @@ test('shows courses overview', function () {
 
 test('only shows released courses', function () {
     // Arrange
-   $releasedCourse = Course::factory()->create(['title' => 'Released course','released_at' => Carbon::yesterday()]);
-   $notReleasedCourse = Course::factory()->create(['title' => 'Unreleased course'] );
+   $releasedCourse = Course::factory()->released()->create();
+   $notReleasedCourse = Course::factory()->create();
 // Act & Assert
     $this->get(route('home'))
         ->assertOk()
