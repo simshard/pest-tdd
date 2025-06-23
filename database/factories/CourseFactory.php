@@ -22,7 +22,7 @@ class CourseFactory extends Factory
             'title' => $this->faker->sentence,
             'tagline' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'image' => 'image.png',
+            'image_name' => 'courseimage.png',
             'learnings' => ['Learning 1', 'Learning 2', 'Learning 3'],
         ];
     }

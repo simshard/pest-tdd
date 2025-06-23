@@ -11,6 +11,7 @@ test('shows course details', function () {
     ->released()
     ->create();
     
+ 
     // Act Assert
     $this->get(route('course-details', $course))
     ->assertOk()  
@@ -19,18 +20,31 @@ test('shows course details', function () {
               $course->tagline,
               $course->description,
             ...$course->learnings,
-           ]);
+      ]) 
+       ->assertSee(asset("images/$course->image_name"));
 });
 
 test('shows course video count', function () {
     // Arrange
-    //$this->withoutExceptionHandling();
-    $course = Course::factory()->create();
-    Video:: factory()->count(3)->create(['course_id' => $course->id]);
-    
+    $course = Course::factory()
+    ->released()
+    ->has(Video::factory()->count(3))
+    ->create();
+   
     // Act & Assert
     $this->get(route('course-details', $course))
      ->assertOk()
      ->assertSeeText('3 videos');
+    
+});
+
+test('does not show unreleased courses', function () {
+    // Arrange
+    $course = Course::factory()
+    ->create();
+   
+    // Act & Assert
+    $this->get(route('course-details', $course))
+     ->assertNotFound();
     
 });

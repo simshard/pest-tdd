@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Course;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,8 +14,11 @@ return new class extends Migration
     {
          Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table ->unsignedBigInteger('course_id');
-            
+            $table->foreignIdFor(Course::class);
+            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('description');
+            $table->string('video_name');
             $table->timestamps();
     }
     );

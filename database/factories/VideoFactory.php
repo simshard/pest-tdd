@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'course_id' => Course::factory(),
+            'slug' => $this->faker->slug,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->text,
+            'video_name' => $this->faker->name,
+ 
         ];
     }
 }

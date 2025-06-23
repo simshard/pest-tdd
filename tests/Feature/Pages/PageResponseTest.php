@@ -10,7 +10,7 @@ test('home page returns a successful response', function () {
 });
  
 test('course details page returns a successful response', function () {
-   $course = Course::factory()->create();
+   $course = Course::factory()->released()->create();
     $response = $this->get(route('course-details', $course->slug));
     $response->assertOk();
 });
