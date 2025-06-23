@@ -13,7 +13,7 @@ test('shows course details', function () {
     
     // Act Assert
     $this->get(route('course-details', $course))
-    //->assertOk()  
+    ->assertOk()  
       ->assertSeeText([
               $course->title,
               $course->tagline,
@@ -24,11 +24,13 @@ test('shows course details', function () {
 
 test('shows course video count', function () {
     // Arrange
+    //$this->withoutExceptionHandling();
     $course = Course::factory()->create();
     Video:: factory()->count(3)->create(['course_id' => $course->id]);
     
     // Act & Assert
     $this->get(route('course-details', $course))
+     ->assertOk()
      ->assertSeeText('3 videos');
     
 });
