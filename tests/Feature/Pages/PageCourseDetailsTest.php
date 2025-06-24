@@ -13,7 +13,7 @@ test('shows course details', function () {
     
  
     // Act Assert
-    $this->get(route('course-details', $course))
+    $this->get(route('pages.course-details', $course))
     ->assertOk()  
       ->assertSeeText([
               $course->title,
@@ -32,7 +32,7 @@ test('shows course video count', function () {
     ->create();
    
     // Act & Assert
-    $this->get(route('course-details', $course))
+    $this->get(route('pages.course-details', $course))
      ->assertOk()
      ->assertSeeText('3 videos');
     
@@ -44,7 +44,7 @@ test('does not show unreleased courses', function () {
     ->create();
    
     // Act & Assert
-    $this->get(route('course-details', $course))
+    $this->get(route('pages.course-details', $course))
      ->assertNotFound();
     
 });

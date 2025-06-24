@@ -14,7 +14,7 @@ test('shows courses overview', function () {
     $lastCourse = Course::factory()->released()->create();
 
     // act & assert
-    $this->get(route('page.home'))
+    $this->get(route('pages.home'))
         ->assertOk()
         ->assertSeeText([
             $firstCourse->title,
@@ -32,7 +32,7 @@ test('only shows released courses', function () {
     $releasedCourse = Course::factory()->released()->create();
     $notReleasedCourse = Course::factory()->create();
     // Act & Assert
-    $this->get(route('page.home'))
+    $this->get(route('pages.home'))
         ->assertOk()
         ->assertSeeText($releasedCourse->title)
         ->assertDontSeeText($notReleasedCourse->title);
@@ -44,7 +44,7 @@ test('shows courses ordered by released date', function () {
     $releasedCourse = Course::factory()->released(Carbon::yesterday())->create();
     $newestReleasedCourse = Course::factory()->released()->create();
     // act & assert
-    $this->get(route('page.home'))
+    $this->get(route('pages.home'))
         ->assertSeeInOrder([
             $newestReleasedCourse->title,
             $releasedCourse->title,

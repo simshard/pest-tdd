@@ -16,6 +16,7 @@ class PageCourseDetailsController extends Controller
        if( !$course->released_at){;
         throw new NotFoundHttpException();
        }
+       $course->loadCount('videos');
 
          return view('pages/course-details', compact('course'));
     }

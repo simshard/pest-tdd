@@ -22,7 +22,7 @@ class VideoFactory extends Factory
             'slug' => $this->faker->slug,
             'title' => $this->faker->sentence,
             'description' => $this->faker->text,
-            'video_name' => $this->faker->name,
+            'video_file' => $this->faker->word.'.'.$this->faker->fileExtension(),
  
         ];
     }

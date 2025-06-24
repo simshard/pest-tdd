@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('description');
-            $table->string('video_name');
+            $table->string('video_file');
             $table->timestamps();
     }
     );
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('videos');
     }
 };
