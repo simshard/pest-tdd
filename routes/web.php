@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Appearance;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageHomeController;
+use App\Http\Controllers\PageDashboardController;
 use App\Http\Controllers\PageCourseDetailsController;
 
 
@@ -12,10 +13,13 @@ use App\Http\Controllers\PageCourseDetailsController;
 Route::get('/', PageHomeController::class)->name('pages.home');
 
 Route::get('courses/{course:slug}', PageCourseDetailsController::class)->name('pages.course-details');
+ 
 
-Route::view('dashboard', 'dashboard')
+ 
+
+ Route::get('/dashboard', PageDashboardController::class)
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+   ->name('pages.dashboard'); 
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
