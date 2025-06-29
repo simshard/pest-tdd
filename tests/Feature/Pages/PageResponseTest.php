@@ -21,6 +21,6 @@ test('course details page returns a successful response', function () {
 test('dashboard page returns a successful response', function () {
     $user = User::factory()->create();
     $this->actingAs($user)
-    ->get(route('dashboard'))
+    ->get(route('pages.dashboard'))
     ->assertOk();
 });
