@@ -1,5 +1,7 @@
 <?php
+use Carbon\Carbon;
 use App\Models\User;
+
 use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -42,23 +44,40 @@ test('guests will be redirected to login page', function () {
       ->get(route('pages.dashboard'))
       ->assertOk() 
      
-       ->assertSeeText(['Course A', 'Course B']);
-    //   ->assertSee($user->courses->first()->title)
-    //   ->assertSee($user->courses->last()->title);   
+       ->assertSeeText(['Course A', 'Course B']);  
      
   });
 
-// test('does not list any unpurchased courses', function () {   
-//     //Arrange
+ test('does not list any unpurchased courses', function () {   
+    //Arrange
+       $user = User::factory()->create();
+       $course = Course::factory()->create(); 
 
 //     //Act & Assert
-// });
+    $this->actingAs($user)
+      ->get(route('pages.dashboard'))
+      ->assertOk()
+      ->assertDontSee($course->title);
+ });
 
-// test('shows most recent purchased course first', function () {   
+ test('shows most recent purchased course first', function () {   
 //     //Arrange
+      $user = User::factory()->create();
+    $firstPurchasedCourse = Course::factory()->create();
+    $latestPurchasedCourse = Course::factory()->create();
+    $user->purchasedCourses()->attach($firstPurchasedCourse, ['created_at' => Carbon::yesterday()]);
+    $user->purchasedCourses()->attach($latestPurchasedCourse, ['created_at' => Carbon::now()]);
+    //Act & Assert
+       $this->actingAs($user)
+      ->get(route('pages.dashboard'))
+      ->assertOk() 
+      ->assertSeeInOrder([
+        $latestPurchasedCourse->title,
+        $firstPurchasedCourse->title,  
+        ]);
+});
 
-//     //Act & Assert
-// });
+
 // test('includes link to product video', function () {   
 //     //Arrange
 
