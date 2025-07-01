@@ -78,8 +78,17 @@ test('guests will be redirected to login page', function () {
 });
 
 
-// test('includes link to product video', function () {   
-//     //Arrange
+test('includes link to course video', function () {   
+    //Arrange
+    $user = User::factory()
+    ->has(Course::factory(), 'purchasedCourses' )
+    ->create();
+    //Act & assert
+    $this->actingAs($user)
+    ->get(route('pages.dashboard'))
+    ->assertOk()
 
-//     //Act & Assert
-// });
+    ->assertSeeText('Watch Video')
+    ->assertSee(route('pages.course-video',Course::first()));
+ 
+});

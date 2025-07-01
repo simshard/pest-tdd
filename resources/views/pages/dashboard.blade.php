@@ -13,6 +13,9 @@
                         <li>
                             {{-- @include('partials.purchase-course-list-item')  --}}
                              <h3>{{ $purchasedCourse->title }}</h3> 
+                            <p>{{ $purchasedCourse->description }}</p>
+                       
+                            <p ><a href="{{ route('pages.course-video', $purchasedCourse) }}">Watch Video</a></p>
                         </li>
                     @endforeach  
 

@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Appearance;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageHomeController;
+use App\Http\Controllers\PageVideosController;
 use App\Http\Controllers\PageDashboardController;
 use App\Http\Controllers\PageCourseDetailsController;
 
@@ -14,7 +15,7 @@ Route::get('/', PageHomeController::class)->name('pages.home');
 
 Route::get('courses/{course:slug}', PageCourseDetailsController::class)->name('pages.course-details');
  
-
+Route::get('videos/{course:slug}', PageVideosController::class)->name('pages.course-video');
  
 
  Route::get('/dashboard', PageDashboardController::class)
