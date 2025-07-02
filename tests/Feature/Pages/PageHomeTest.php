@@ -1,11 +1,8 @@
 <?php
 
 use App\Models\Course;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 // use function Pest\Laravel\get;
 use Illuminate\Support\Carbon;
-
-uses(RefreshDatabase::class);
 
 test('shows courses overview', function () {
     // arrange

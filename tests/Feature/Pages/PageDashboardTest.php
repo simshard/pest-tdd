@@ -3,10 +3,7 @@ use Carbon\Carbon;
 use App\Models\User;
 
 use App\Models\Course;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-
-uses(RefreshDatabase::class);
 
 test('logged in users can access dashboard page', function () {
     $user = User::factory()->create();

@@ -2,9 +2,7 @@
 
 use App\Models\Video;
 use App\Models\Course;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
 test('shows course details', function () {
     // Arrange
     $course = Course::factory()
