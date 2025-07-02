@@ -6,16 +6,13 @@ use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 test('logged in users can access dashboard page', function () {
-    $user = User::factory()->create();
-    $this->actingAs($user)
-    ->get(route('pages.dashboard'))
+   // $user = User::factory()->create();
+    loginAsUser();
+    $this->get(route('pages.dashboard'))
     ->assertOk();
 });
 
 test('guests will be redirected to login page', function () {   
-    //Arrange
-
-    //Act & Assert
     $this->get(route('pages.dashboard'))
     ->assertRedirect(route('login'));
 });
@@ -32,17 +29,12 @@ test('guests will be redirected to login page', function () {
     ['title' => 'Course B'],
       )) ,'purchasedCourses')
     ->create();
- 
-// $pcs = $user->purchasedCourses->toArray(); 
-// dd($pcs[0]['title'].' * '.$pcs[1]['title']);
 
       //Act & Assert
-      $this->actingAs($user)
-      ->get(route('pages.dashboard'))
+      loginAsUser($user);
+      $this->get(route('pages.dashboard'))
       ->assertOk() 
-     
        ->assertSeeText(['Course A', 'Course B']);  
-     
   });
 
  test('does not list any unpurchased courses', function () {   
@@ -51,8 +43,8 @@ test('guests will be redirected to login page', function () {
        $course = Course::factory()->create(); 
 
 //     //Act & Assert
-    $this->actingAs($user)
-      ->get(route('pages.dashboard'))
+    loginAsUser($user);
+    $this  ->get(route('pages.dashboard'))
       ->assertOk()
       ->assertDontSee($course->title);
  });
@@ -65,8 +57,8 @@ test('guests will be redirected to login page', function () {
     $user->purchasedCourses()->attach($firstPurchasedCourse, ['created_at' => Carbon::yesterday()]);
     $user->purchasedCourses()->attach($latestPurchasedCourse, ['created_at' => Carbon::now()]);
     //Act & Assert
-       $this->actingAs($user)
-      ->get(route('pages.dashboard'))
+        loginAsUser($user);
+      $this->get(route('pages.dashboard'))
       ->assertOk() 
       ->assertSeeInOrder([
         $latestPurchasedCourse->title,
@@ -81,8 +73,8 @@ test('includes link to course video', function () {
     ->has(Course::factory(), 'purchasedCourses' )
     ->create();
     //Act & assert
-    $this->actingAs($user)
-    ->get(route('pages.dashboard'))
+    loginAsUser($user);
+    $this->get(route('pages.dashboard'))
     ->assertOk()
 
     ->assertSeeText('Watch Video')
