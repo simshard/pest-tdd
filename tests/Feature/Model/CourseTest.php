@@ -2,9 +2,6 @@
 
 use App\Models\Video;
 use App\Models\Course;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-uses(RefreshDatabase::class);
 
 test('only returns released courses for released query scope', function () {
     // Arrange
