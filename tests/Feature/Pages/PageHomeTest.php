@@ -51,8 +51,3 @@ test('shows courses ordered by released date', function () {
         ]);
 });
 
-test('includes social tags', function () {
-    // Arrange
-    // Act
-    // Assert
-})->skip();
