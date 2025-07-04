@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Course;
-// use function Pest\Laravel\get;
+ use function Pest\Laravel\get;
 use Illuminate\Support\Carbon;
 
 test('shows courses overview', function () {
@@ -48,3 +48,19 @@ test('shows courses ordered by released date', function () {
         ]);
 });
 
+it('includes login if not logged in', function () {
+    // Act & Assert
+     $this->get(route('pages.home'))
+        ->assertOk()
+        ->assertSeeText('Login')
+        ->assertSee(route('login'));
+});
+
+it('includes link to dashboard if logged in', function () {
+    // Act & Assert
+    loginAsUser();
+     $this->get(route('pages.home'))
+        ->assertOk()
+        ->assertSeeText('Dashboard')
+        ->assertSee(route('pages.dashboard'));
+});

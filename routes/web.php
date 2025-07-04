@@ -8,10 +8,11 @@ use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PageVideosController;
 use App\Http\Controllers\PageDashboardController;
 use App\Http\Controllers\PageCourseDetailsController;
-
-
+use Illuminate\Container\Attributes\Log;
 
 Route::get('/', PageHomeController::class)->name('pages.home');
+
+ Route::view('/login','livewire.auth.login')->name('login');
 
 Route::get('courses/{course:slug}', PageCourseDetailsController::class)->name('pages.course-details');
  
