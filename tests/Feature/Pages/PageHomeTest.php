@@ -2,6 +2,7 @@
 
 use App\Models\Course;
  use function Pest\Laravel\get;
+ use function Pest\Laravel\get;
 use Illuminate\Support\Carbon;
 
 test('shows courses overview', function () {
