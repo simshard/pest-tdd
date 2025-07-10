@@ -31,7 +31,7 @@ class Course extends Model
        return $this->hasMany(Video::class);
     }
     
-    public function userCourses(): BelongsToMany
+    public function courses(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'purchased_courses');
     }

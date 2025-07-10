@@ -61,6 +61,24 @@ it('includes link to dashboard if logged in', function () {
     loginAsUser();
      $this->get(route('pages.home'))
         ->assertOk()
-        ->assertSeeText('Dashboard')
+         ->assertSeeText('Dashboard')
         ->assertSee(route('pages.dashboard'));
 });
+
+it('includes courses link', function () {
+    // Arrange
+    $firstCourse = Course::factory()->released()->create();
+    $secondCourse = Course::factory()->released()->create();
+    $lastCourse = Course::factory()->released()->create();
+
+    // Act & Assert
+    $this->get(route('pages.home'))
+        ->assertOk()
+         ->assertSee([
+            route('pages.course-details', $firstCourse),
+            route('pages.course-details', $secondCourse),
+            route('pages.course-details', $lastCourse),
+        ]);
+       
+});
+

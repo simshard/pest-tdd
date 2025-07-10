@@ -30,11 +30,13 @@ test('guests will be redirected to login page', function () {
       )) ,'purchasedCourses')
     ->create();
 
+    // dd($user->purchasedCourses()->get(['title'])->collect()->pluck('title')->toArray()); //
+
       //Act & Assert
       loginAsUser($user);
       $this->get(route('pages.dashboard'))
       ->assertOk() 
-       ->assertSeeText(['Course A', 'Course B']);  
+       ->assertSeeText(['Course A' , 'Course B']); //
   });
 
  test('does not list any unpurchased courses', function () {   

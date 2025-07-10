@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Video;
 use App\Models\Course;
 
 
@@ -16,7 +17,19 @@ test('course details page returns a successful response', function () {
 });
 
 test('dashboard page returns a successful response', function () {
-    loginAsUser();
+    $user=loginAsUser();
+   //  dd($user);
     $this->get(route('pages.dashboard'))
     ->assertOk();
+});
+
+it('gives successful response for videos page', function () {
+    // Arrange
+    $course = Course::factory()
+        ->has(Video::factory())
+        ->create();
+
+    // Act & Assert
+    loginAsUser();
+    $this->get(route('pages.videos', $course))->assertOk();
 });

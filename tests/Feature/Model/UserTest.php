@@ -3,7 +3,7 @@
 use App\Models\Course;
 use App\Models\User;
 
-it('has courses', function () {
+test('can have courses', function () {
     // Arrange
     $user = User::factory()
         ->has(Course::factory()->count(2), 'purchasedCourses')

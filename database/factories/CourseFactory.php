@@ -19,9 +19,9 @@ class CourseFactory extends Factory
     {
         return [
             'slug' => $this->faker->slug,
-            'title' => $this->faker->sentence,
-            'tagline' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'title' => $this->faker->words(3, true),
+            'tagline' => $this->faker->words(3, true),
+            'description' => $this->faker->sentence,
             'image_name' => 'courseimage.png',
             'learnings' => ['Learning 1', 'Learning 2', 'Learning 3'],
         ];

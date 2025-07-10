@@ -23,6 +23,10 @@ Route::get('videos/{course:slug}', PageVideosController::class)->name('pages.cou
     ->middleware(['auth', 'verified'])
    ->name('pages.dashboard'); 
 
+ Route::get('videos/{course:slug}/{video:slug?}', PageVideosController::class)
+  ->middleware(['auth', 'verified'])
+ ->name('pages.videos');   
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

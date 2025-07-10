@@ -19,9 +19,9 @@ class VideoFactory extends Factory
     {
         return [
             'course_id' => Course::factory(),
-            'slug' => $this->faker->slug,
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->text,
+            'slug' => $this->faker->slug(3,false),
+            'title' => $this->faker->words(3, true),
+            'description' => $this->faker->words(3, true),
             'video_file' => $this->faker->word.'.'.$this->faker->fileExtension(),
  
         ];
